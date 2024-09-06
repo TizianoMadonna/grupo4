@@ -9,9 +9,8 @@ import utn.methodology.infrastructure.persistence.connectToMongoDB
 import utn.methodology.application.commands.CrearUsuarioComando
 import utn.methodology.application.commandhandlers.CrearUsuarioHandler
 import utn.methodology.domain.entities.Usuario
-import utn.methodology.infrastructure.persistence.RepositorioUsuarioMongo
-
 import utn.methodology.infrastructure.http.actions.ActionCrearUsuario
+import utn.methodology.infrastructure.persistence.RepositorioUsuarioMongo
 
 //falta import example.com.infrastructure.persistence.MongoUserRepository
 //import example.com.infrastructure.persistence.connectToMongoDB
@@ -33,7 +32,7 @@ fun Application.UsuarioRouter(){
         get("/users") {
             val usuario = userMongoUserRepository.BuscarTodoUsuario();
 
-            call.respond(HttpStatusCode.OK, Usuario.map { it.toPrimitives() })
+            call.respond(HttpStatusCode.OK, usuario.map { it.toPrimitives() })
         }
     }
 }

@@ -44,7 +44,7 @@ class RepositorioUsuarioMongo(private val database: MongoDatabase) {
     }
 
     fun Borrar(usuario: Usuario) {
-        val filtro = Document("_id", Usuario.getId());
+        val filtro = Document("_id", usuario.getId());
 
         coleccion.deleteOne(filtro)
     }

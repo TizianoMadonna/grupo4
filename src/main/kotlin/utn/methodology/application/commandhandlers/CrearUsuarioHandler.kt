@@ -9,7 +9,7 @@ class CrearUsuarioHandler (private val RepositorioUsuario: RepositorioUsuarioMon
 {
     fun handle (command: CrearUsuarioComando){
         val usuario = Usuario(
-        UUID.randomUUID(),
+        UUID.randomUUID().toString(),
         command.usuario,
         command.nombre,
         command.email,
