@@ -1,6 +1,5 @@
 package utn.methodology.domain.entities
 
-import java.util.*
 
 class Usuario(
     private val uuid: String,

@@ -1,7 +1,7 @@
 package utn.methodology.application.commandhandlers;
 
 import utn.methodology.application.commands.CrearUsuarioComando
-import utn.methodology.infrastructure.persistence.RepositorioUsuarioMongo;
+import utn.methodology.infrastructure.persistence.RepositorioUsuarioMongo
 import java.util.*
 import utn.methodology.domain.entities.Usuario
 

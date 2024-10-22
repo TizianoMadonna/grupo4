@@ -8,7 +8,6 @@ import io.ktor.server.routing.*
 import utn.methodology.infrastructure.persistence.connectToMongoDB
 import utn.methodology.application.commands.CrearUsuarioComando
 import utn.methodology.application.commandhandlers.CrearUsuarioHandler
-import utn.methodology.domain.entities.Usuario
 import utn.methodology.infrastructure.http.actions.ActionCrearUsuario
 import utn.methodology.infrastructure.persistence.RepositorioUsuarioMongo
 
