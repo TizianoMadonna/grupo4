@@ -1,6 +1,5 @@
 package utn.methodology.infrastructure.http.router
 
-import com.mongodb.client.MongoDatabase
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
@@ -27,7 +26,7 @@ fun Application.PostRouter(){
     val buscarPostSeguidorHandler = BuscarPostSeguidorHandler(postMongoRepository, usuarioMongoRepository)
 
 
-    val actionCrearPost = ActionCrearPost(CrearPostHandler(postMongoRepository, usuarioMongoRepository))
+    val actionCrearPost = ActionCrearPost(CrearPostHandler(postMongoRepository))
 
     routing {
 

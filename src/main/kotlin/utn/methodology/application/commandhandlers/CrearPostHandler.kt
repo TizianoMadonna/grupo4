@@ -2,14 +2,12 @@ package utn.methodology.application.commandhandlers
 
 import io.ktor.server.plugins.*
 import utn.methodology.application.commands.CrearPostComand;
-import utn.methodology.infrastructure.persistence.RepositorioUsuarioMongo
 import java.util.*
 import utn.methodology.domain.entities.Post
 import utn.methodology.infrastructure.persistence.RepositorioPostMongo
 
 
-class CrearPostHandler(private val RepositorioPost: RepositorioPostMongo,
-                       private val RepositorioUsuario: RepositorioUsuarioMongo) {
+class CrearPostHandler(private val RepositorioPost: RepositorioPostMongo) {
     fun handle (command: CrearPostComand){
         val UsuarioBuscado = this.RepositorioUsuario.BuscarUsuarioId(command.userId);
         if(UsuarioBuscado == null){

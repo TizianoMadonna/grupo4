@@ -1,8 +1,5 @@
-package utn.methodology.application.commandhandlers
+package utn.methodology
 
-import utn.methodology.infrastructure.persistence.RepositorioUsuarioMongo
-import utn.methodology.application.commands.CrearUsuarioComando
-import utn.methodology.domain.entities.Usuario
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoDatabase
 import kotlin.test.AfterTest
@@ -10,6 +7,10 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertEquals
+import utn.methodology.infrastructure.persistence.RepositorioUsuarioMongo
+import utn.methodology.application.commandhandlers.CrearUsuarioHandler
+import utn.methodology.application.commands.CrearUsuarioComando
+import utn.methodology.domain.entities.Usuario
 
 class CrearUsuarioTest {
 
