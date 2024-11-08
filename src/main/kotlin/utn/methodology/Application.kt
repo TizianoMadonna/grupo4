@@ -10,8 +10,12 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.request.*
 import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import org.slf4j.LoggerFactory
+import utn.methodology.infrastructure.http.router.PostRouter
+import utn.methodology.infrastructure.http.router.SeguirRouter
 import utn.methodology.infrastructure.persistence.configureDatabases
+import utn.methodology.infrastructure.http.router.UsuarioRouter
 
 fun main(args: Array<String>) {
     io.ktor.server.netty.EngineMain.main(args)
@@ -39,11 +43,12 @@ fun Application.module() {
             enable(SerializationFeature.INDENT_OUTPUT)
         }
     }
-
     configureDatabases()
-    //userRouter()
+    UsuarioRouter()
+    PostRouter()
     errorHandler()
 }
+
 
 
 
