@@ -2,13 +2,17 @@ package utn.methodology.infrastructure.persistence
 
 import com.mongodb.client.MongoDatabase
 import com.mongodb.client.MongoCollection
+import com.mongodb.client.model.Filters
 import com.mongodb.client.model.UpdateOptions
+import com.mongodb.client.model.Updates
 import utn.methodology.domain.entities.Usuario
 import org.bson.Document
+
 
 class RepositorioUsuarioMongo(private val database: MongoDatabase) {
 
     private var coleccion: MongoCollection<Any>;
+    private val usuarios: MutableMap<Long, Usuario> = mutableMapOf()
     init{
         coleccion = database.getCollection("Usuario") as MongoCollection<Any>;
     }
@@ -48,5 +52,24 @@ class RepositorioUsuarioMongo(private val database: MongoDatabase) {
 
         coleccion.deleteOne(filtro)
     }
+    fun AgregarSeguidor(followerId: String, followingId: String){
+        val filtroSeguidor = Filters.eq("_id", followerId)
+        val filtroSeguido = Filters.eq("_id", followingId)
 
+        coleccion.updateOne(filtroSeguidor, Updates.addToSet("seguidos", followingId))
+
+        coleccion.updateOne(filtroSeguido, Updates.addToSet("seguidores", followerId))
+    }
+    fun EliminarSeguidor(followerId: String, followingId: String) {
+        val filtroSeguidor = Filters.eq("_id", followerId)
+        val filtroSeguido = Filters.eq("_id", followingId)
+
+        coleccion.updateOne(filtroSeguidor, Updates.pull("seguidos", followingId))
+
+        coleccion.updateOne(filtroSeguido, Updates.pull("seguidores", followerId))
+    }
+    fun existeUsuarioConId(id: String): Boolean {
+        val filtro = Filters.eq("_id", id)
+        return coleccion.find(filtro).firstOrNull() != null
+    }
 }

@@ -6,6 +6,7 @@ import com.mongodb.client.model.UpdateOptions
 import utn.methodology.domain.entities.Post
 import org.bson.Document
 
+@Suppress("UNCHECKED_CAST")
 class RepositorioPostMongo(private val database: MongoDatabase) {
 
     private var coleccion: MongoCollection<Any>;
@@ -63,22 +64,18 @@ class RepositorioPostMongo(private val database: MongoDatabase) {
         }
         return Post.fromPrimitives(primitives as Map<String,String>)
     }
-    fun findByOwnerId(ownerId: String): List<Post> {
-        val filtro = Document("ownerId", ownerId);
+    fun findOne(id: String): Post? {
+        val filtro = Document("_id", id)  // Ensure `_id` is correct
+        val primitives = coleccion.find(filtro).firstOrNull()
 
-        val primitives = coleccion.find(filtro)
-            .sort(Document("createdAt", 1)).toList()
-
-        return primitives.map { Post.fromPrimitives(it as Map<String, Any>) }
+        return primitives?.let { Post.fromPrimitives(it.toString() as Map<String, String>) }
     }
-    fun findByFollows(IdSeguidos: List<String>): List<Post> {
-        val filtro = Document("ownerId", Document("\$in", IdSeguidos))
+    fun BuscarPostsUsuariosSeguidos(id: List<String>): List<Post> {
+        val filtro = Document("_userId", Document("\$in", id))
+        val posts = coleccion.find(filtro).sort(Document("fecha", -1)).map { it as Document }.toList()
 
-        val primitives = coleccion.find(filtro).sort(
-            Document("fecha", 1)
-        ).toList()
-
-        return primitives.map { Post.fromPrimitives(it as Map<String, Any>) }
+        return posts.map {
+            Post.fromPrimitives(it.toMap().mapValues { entry -> entry.value.toString() } as Map<String, String>)
+        }
     }
-
 }

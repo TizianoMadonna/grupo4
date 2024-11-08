@@ -3,13 +3,13 @@ package utn.methodology.domain.entities
 import java.time.LocalDateTime
 
 class Post (
-    private val uuid: String,
+    private val id: String,
     private var userId: String,
     private var contenido: String,
     private val fecha: String = LocalDateTime.now().toString()
 ) {
     companion object {
-        fun fromPrimitives(primitives: Map<String, Any>): Post {
+        fun fromPrimitives(primitives: Map<String, String>): Post {
             val post = Post(
                 primitives["id"] as String,
                 primitives["userId"] as String,
@@ -19,20 +19,21 @@ class Post (
             return post;
         }
     }
-    fun getContenido(): String{
+
+    fun getContenido(): String {
         return this.contenido;
     }
+
     fun getId(): String {
-        return this.uuid;
+        return this.id;
     }
 
     fun update(contenido: String) {
         this.contenido = contenido;
     }
-
     fun toPrimitives(): Map<String, String> {
         return mapOf(
-            "id" to this.uuid,
+            "id" to this.id,
             "userId" to this.userId,
             "contenido" to this.contenido,
             "fecha" to this.fecha

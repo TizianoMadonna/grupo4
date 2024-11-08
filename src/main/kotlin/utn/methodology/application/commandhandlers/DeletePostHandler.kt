@@ -7,7 +7,7 @@ import utn.methodology.infrastructure.persistence.RepositorioPostMongo
 
 class DeletePostHandler(private val repositorio : RepositorioPostMongo) {
     fun handle(comando : DeletePostComando){
-        val post = repositorio.finOne(comando.id)
+        val post = repositorio.findOne(comando.id)
         if(post == null){
             throw NotFoundException("No se encotro el post como id: ${comando.id}")
         }
